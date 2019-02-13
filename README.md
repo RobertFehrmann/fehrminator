@@ -24,7 +24,7 @@ Using the input schema, the framework generates an SQL script to generate data i
 1. Save the worksheet as txt format
 1. Run the following command to generate the SQL Script
 
-cat <name>.txt | sed "s/\"//g" | sed "s/\|/\"/g" | awk -F"\t" -f assemble.awk
+cat name.txt | sed "s/\"//g" | sed "s/\|/\"/g" | awk -F"\t" -f assemble.awk
 
 ## Python Code Generation
 
@@ -33,6 +33,6 @@ cat <name>.txt | sed "s/\"//g" | sed "s/\|/\"/g" | awk -F"\t" -f assemble.awk
 1. Save the worksheet as csv format
 1. Run the following command to generate the SQL Script
 
-python snowflake_python_generator.py <name>.csv
+python snowflake_python_generator.py name.csv
 
 
