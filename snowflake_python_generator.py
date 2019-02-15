@@ -78,7 +78,7 @@ def load_db_file(filename,quoted_names):
       if datatype.upper() == 'DATE':
         formula = 'dateadd(day, uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +')), date_trunc(day, current_date))::DATE as ' + col
       elif datatype.upper() == 'TIMESTAMP':
-        formula = '(date_part(epoch_second, date_trunc(day, current_date)) + (uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +'))::timestamp as ' + col
+        formula = '(date_part(epoch_second, date_trunc(day, current_date)) + (uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +'))))::timestamp as ' + col
       elif datatype.upper() == 'VARCHAR' or datatype.upper() == 'CHAR':
         formula = 'rpad(lpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,length(' + str(cardinality) + "),'0'),"+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')::" + datatype + '(' + str(datatype_length) + ') as ' + col
       elif datatype.upper() == 'BIGINT' or datatype.upper() == 'INTEGER' or datatype.upper() == 'DOUBLE' or datatype.upper() == 'FLOAT':
