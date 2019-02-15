@@ -1,0 +1,12 @@
+id	Schema Name	Table Name	STMT: CREATE 	STMT: FROM	Column Name	STMT: Expression	ColumnCardinality			Table Cardinalyty	DataType	Length	Precision	Seed	Seed	Normal Dist	Schema Name	TableName	Column Name	Column Cardinality	Table Cardinality	Data type	Length	Precision	# Nulls	Distribution	Nullable	Dim key	Is Foreign Key
+0		|			|									20000	10000														
+1	schema1	|table1|	create schema if not exists schema1;  create or replace table schema1.|table1| as select		|column1|	"dateadd(day,uniform(1,100 , random(10001)),current_date)::date as |column1|"	100			10000	date			20001	10001		schema1	table1	column1	100	10000	date							
+2	schema1	|table1|			|column2|	"(date_part(epoch_second, current_date)+(uniform(1,100, random(10002))))::timestamp as |column2|"	100			10000	timestamp			20002	10002		schema1	table1	column2	100	10000	timestamp							
+3	schema1	|table1|			|column3|	"rpad(lpad(uniform(1,100 , random(10003))::varchar, length(100),'0'),10,'abcdefghifklmnopqrstuvwxyz')::varchar(10) as |column3|"	100			10000	varchar	10		20003	10003		schema1	table1	column3	100	10000	varchar	10						
+4	schema1	|table1|			|column4|	"rpad(lpad(uniform(1,100 , random(10004))::varchar, length(100),'0'),10,'abcdefghifklmnopqrstuvwxyz')::char(10) as |column4|"	100			10000	char	10		20004	10004		schema1	table1	column4	100	10000	char	10						
+5	schema1	|table1|			|column5|	"uniform(1,100 , random(10005))::bigint as |column5|"	100			10000	bigint			20005	10005		schema1	table1	column5	100	10000	bigint							
+6	schema1	|table1|			|column6|	"uniform(1,100 , random(10006))::integer as |column6|"	100			10000	integer			20006	10006		schema1	table1	column6	100	10000	integer							
+7	schema1	|table1|			|column7|	"uniform(1,100 , random(10007))::double as |column7|"	100			10000	double			20007	10007		schema1	table1	column7	100	10000	double							
+8	schema1	|table1|			|column8|	"uniform(1,100 , random(10008))::float as |column8|"	100			10000	float			20008	10008		schema1	table1	column8	100	10000	float							
+9	schema1	|table1|		from table(generator(rowcount => 10000))	|column9|	"uniform(1,100 , random(10009))::number(10,2) as |column9|"	100			10000	number	10	2	20009	10009		schema1	table1	column9	100	10000	number	10	2					
+																													

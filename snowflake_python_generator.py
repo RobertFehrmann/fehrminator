@@ -84,7 +84,7 @@ def load_db_file(filename,quoted_names):
       elif datatype.upper() == 'BIGINT' or datatype.upper() == 'INTEGER' or datatype.upper() == 'DOUBLE' or datatype.upper() == 'FLOAT':
         formula = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))::' + datatype + ' as ' + col
       elif datatype.upper() == 'NUMBER':
-        formula = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))::number(' + str(length) + ',' + str(precision) + ') as ' + col
+        formula = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))::number(' + str(datatype_length) + ',' + str(datatype_precision) + ') as ' + col
 
       if (formula==''):
         print( "Unknown Datatype: ",datatype ) 
