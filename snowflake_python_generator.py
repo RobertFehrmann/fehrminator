@@ -14,6 +14,7 @@ import getpass
 import argparse
 #import snowflake.connector
 import re
+import csv
 
 #Verbose processing
 def show_verbose(verbose, text_to_print):
@@ -58,9 +59,7 @@ def load_db_file(filename,quoted_names):
   #Used to skip the header record in the file.
   with open(filename, 'rU') as fh:
     next(fh)
-    for line in fh:
-      line = line.rstrip('\n').rstrip('"')
-      line_list=line.split(',')
+    for line_list in csv.reader(fh, delimiter=',', quotechar='"'):
       db="TEST"
       schema=line_list[0]
       tbl=quotes + line_list[1] + quotes
@@ -133,7 +132,7 @@ def print_ddl(database_objects, outputfile):
       printer('USE SCHEMA '+ str(schema) +';', of)
       tbl_obj=schema_obj[schema]
       for tbl in tbl_obj:
-        printer('CREATE or REPLACE TABLE '+ tbl, of)
+        printer('CREATE or REPLACE TRANSIENT TABLE '+ tbl, of)
         printer('AS', of)
         printer('SELECT', of)
         col_obj=tbl_obj[tbl]
