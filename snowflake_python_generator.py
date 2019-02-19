@@ -64,30 +64,55 @@ def load_db_file(filename,quoted_names):
       schema=line_list[0]
       tbl=quotes + line_list[1] + quotes
       col=quotes + line_list[2] + quotes
-      cardinality=line_list[3]
-      tbl_cardinality=line_list[4]
+      cardinality=line_list[3].strip()
+      tbl_cardinality=line_list[4].strip()
       datatype=line_list[5]
-      datatype_length=line_list[6]
-      datatype_precision=line_list[7]
+      datatype_length=line_list[6].strip()
+      datatype_precision=line_list[7].strip()
+      if(len(line_list)>7):
+        null_values=line_list[8].strip()
+        if (null_values==''):
+           null_ratio=0
+        else:
+           null_ratio=(float(null_values)/float(tbl_cardinality))*1000
+
       seed_1=seed_1+1
 
       #Reset the formula to make sure we catch all occurances
       formula = ''
-      
-      if datatype.upper() == 'DATE':
-        formula = 'dateadd(day, uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +')), date_trunc(day, current_date))::DATE as ' + col
-      elif datatype.upper() == 'TIMESTAMP':
-        formula = '(date_part(epoch_second, current_date) + (uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +'))))::timestamp as ' + col
-      elif datatype.upper() == 'VARCHAR' or datatype.upper() == 'CHAR':
-        formula = 'rpad(lpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,length(' + str(cardinality) + "),'0'),"+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')::" + datatype + '(' + str(datatype_length) + ') as ' + col
-      elif datatype.upper() == 'BIGINT' or datatype.upper() == 'INTEGER' or datatype.upper() == 'DOUBLE' or datatype.upper() == 'FLOAT':
-        formula = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))::' + datatype + ' as ' + col
-      elif datatype.upper() == 'NUMBER':
-        formula = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))::number(' + str(datatype_length) + ',' + str(datatype_precision) + ') as ' + col
 
-      if (formula==''):
+      if datatype.upper() == 'DATE':
+        fb = 'dateadd(day, uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +')), date_trunc(day, current_date))'
+        fe = '::date as ' + col
+      elif datatype.upper() == 'TIMESTAMP':
+        fb = '(date_part(epoch_second, current_date) + (uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +'))))'
+        fe = '::timestamp as ' + col
+      elif datatype.upper() == 'CHAR':
+        fb = 'rpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
+        fe = '::char(' + str(datatype_length) + ') as ' + col
+      elif datatype.upper() == 'VARCHAR':
+        fb = 'rpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,uniform(length(' +  str(cardinality) + '),' +str(datatype_length) + ',random(' + str(seed_1+20000) + '))' + ", 'abcdefghifklmnopqrstuvwxyz')" 
+        fe = '::varchar(' + str(datatype_length) + ') as ' + col
+      elif datatype.upper() == 'BIGINT' or datatype.upper() == 'INTEGER' or datatype.upper() == 'DOUBLE' or datatype.upper() == 'FLOAT':
+        fb = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))'
+        fe = '::' + datatype.lower() + ' as ' + col
+      elif datatype.upper() == 'NUMBER':
+        fb = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))'
+        fe = '::number(' + str(datatype_length) + ',' + str(datatype_precision) + ') as ' + col
+      else:
+        fb=''
+        fe=''
+
+      if (fb==''):
         print( "Unknown Datatype: ",datatype ) 
       else:
+        if (int(cardinality)<=0):
+          formula = 'null'+fe
+        elif (null_ratio<=0):
+          formula = fb + fe
+        else:
+          formula = '(case when uniform(1,1000,random(20011))<='+str(int(null_ratio))+' then null else '+fb+' end)'+fe
+
         column_info={'NAME': col, 'DATA_TYPE': datatype, 'LENGTH': datatype_length, 'CARDINALITY': cardinality, 'TBL_CARDINALITY': tbl_cardinality, 'FORMULA': formula  }
 
         if db not in database_objects:

@@ -1,12 +1,22 @@
 id	Schema Name	Table Name	STMT: CREATE 	STMT: FROM	Column Name	STMT: Expression	ColumnCardinality			Table Cardinalyty	DataType	Length	Precision	Seed	Seed	Normal Dist	Schema Name	TableName	Column Name	Column Cardinality	Table Cardinality	Data type	Length	Precision	# Nulls	Distribution	Nullable	Dim key	Is Foreign Key
-0		|			|									20000	10000														
-1	schema1	|table1|	create schema if not exists schema1;  create or replace table schema1.|table1| as select		|column1|	"dateadd(day,uniform(1,100 , random(10001)),current_date)::date as |column1|"	100			10000	date			20001	10001		schema1	table1	column1	100	10000	date							
-2	schema1	|table1|			|column2|	"(date_part(epoch_second, current_date)+(uniform(1,100, random(10002))))::timestamp as |column2|"	100			10000	timestamp			20002	10002		schema1	table1	column2	100	10000	timestamp							
-3	schema1	|table1|			|column3|	"rpad(lpad(uniform(1,100 , random(10003))::varchar, length(100),'0'),10,'abcdefghifklmnopqrstuvwxyz')::varchar(10) as |column3|"	100			10000	varchar	10		20003	10003		schema1	table1	column3	100	10000	varchar	10						
-4	schema1	|table1|			|column4|	"rpad(lpad(uniform(1,100 , random(10004))::varchar, length(100),'0'),10,'abcdefghifklmnopqrstuvwxyz')::char(10) as |column4|"	100			10000	char	10		20004	10004		schema1	table1	column4	100	10000	char	10						
-5	schema1	|table1|			|column5|	"uniform(1,100 , random(10005))::bigint as |column5|"	100			10000	bigint			20005	10005		schema1	table1	column5	100	10000	bigint							
-6	schema1	|table1|			|column6|	"uniform(1,100 , random(10006))::integer as |column6|"	100			10000	integer			20006	10006		schema1	table1	column6	100	10000	integer							
-7	schema1	|table1|			|column7|	"uniform(1,100 , random(10007))::double as |column7|"	100			10000	double			20007	10007		schema1	table1	column7	100	10000	double							
-8	schema1	|table1|			|column8|	"uniform(1,100 , random(10008))::float as |column8|"	100			10000	float			20008	10008		schema1	table1	column8	100	10000	float							
-9	schema1	|table1|		from table(generator(rowcount => 10000))	|column9|	"uniform(1,100 , random(10009))::number(10,2) as |column9|"	100			10000	number	10	2	20009	10009		schema1	table1	column9	100	10000	number	10	2					
-																													
+0														20000	10000														
+1	schema1	table1	create schema if not exists schema1;  create or replace transient table schema1.table1 as select		column1	"dateadd(day,uniform(1,100 , random(10001)),current_date)::date as column1"	100			10000	date			20001	10001		schema1	table1	column1	100	10000	date			 				
+2	schema1	table1			column2	"(date_part(epoch_second, current_date)+(uniform(1,100, random(10002))))::timestamp as column2"	100			10000	timestamp			20002	10002		schema1	table1	column2	100	10000	timestamp			  				
+3	schema1	table1			column3	"rpad(uniform(1,100 , random(10003))::varchar,uniform(length(100),10,random(10003+20000)),'abcdefghifklmnopqrstuvwxyz')::varchar(10) as column3"	100			10000	varchar	10		20003	10003		schema1	table1	column3	100	10000	varchar	10		 				
+4	schema1	table1			column4	"rpad(uniform(1,100 , random(10004))::varchar,10,'abcdefghifklmnopqrstuvwxyz')::char(10) as column4"	100			10000	char	10		20004	10004		schema1	table1	column4	100	10000	char	10		 				
+5	schema1	table1			column5	"uniform(1,100 , random(10005))::bigint as column5"	100			10000	bigint			20005	10005		schema1	table1	column5	100	10000	bigint			 				
+6	schema1	table1			column6	"uniform(1,100 , random(10006))::integer as column6"	100			10000	integer			20006	10006		schema1	table1	column6	100	10000	integer			 				
+7	schema1	table1			column7	"uniform(1,100 , random(10007))::double as column7"	100			10000	double			20007	10007		schema1	table1	column7	100	10000	double			 				
+8	schema1	table1			column8	"uniform(1,100 , random(10008))::float as column8"	100			10000	float			20008	10008		schema1	table1	column8	100	10000	float			 				
+9	schema1	table1			column9	"uniform(1,100 , random(10009))::number(10,2) as column9"	100			10000	number	10	2	20009	10009		schema1	table1	column9	100	10000	number	10	2	 				
+10	schema1	table1			column10	null::integer as column10	0			10000	integer			20010	10010		schema1	table1	column10	0	10000	integer			 				
+11	schema1	table1			column101	"dateadd(day,uniform(1,100 , random(10011)),current_date)::date as column101"	100			10000	date			20011	10011		schema1	table1	column101	100	10000	date			3000				
+12	schema1	table1			column102	"(date_part(epoch_second, current_date)+(uniform(1,100, random(10012))))::timestamp as column102"	100			10000	timestamp			20012	10012		schema1	table1	column102	100	10000	timestamp			3000				
+13	schema1	table1			column103	"rpad(uniform(1,100 , random(10013))::varchar,uniform(length(100),10,random(10013+20000)),'abcdefghifklmnopqrstuvwxyz')::varchar(10) as column103"	100			10000	varchar	10		20013	10013		schema1	table1	column103	100	10000	varchar	10		3000				
+14	schema1	table1			column104	"rpad(uniform(1,100 , random(10014))::varchar,10,'abcdefghifklmnopqrstuvwxyz')::char(10) as column104"	100			10000	char	10		20014	10014		schema1	table1	column104	100	10000	char	10		3000				
+15	schema1	table1			column105	"uniform(1,100 , random(10015))::bigint as column105"	100			10000	bigint			20015	10015		schema1	table1	column105	100	10000	bigint			3000				
+16	schema1	table1			column106	"uniform(1,100 , random(10016))::integer as column106"	100			10000	integer			20016	10016		schema1	table1	column106	100	10000	integer			3000				
+17	schema1	table1			column107	"uniform(1,100 , random(10017))::double as column107"	100			10000	double			20017	10017		schema1	table1	column107	100	10000	double			3000				
+18	schema1	table1			column108	"uniform(1,100 , random(10018))::float as column108"	100			10000	float			20018	10018		schema1	table1	column108	100	10000	float			3000				
+19	schema1	table1			column109	"uniform(1,100 , random(10019))::number(10,2) as column109"	100			10000	number	10	2	20019	10019		schema1	table1	column109	100	10000	number	10	2	3000				
+20	schema1	table1		from table(generator(rowcount => 10000))	column110	null::integer as column110	0			10000	integer			20020	10020		schema1	table1	column110	0	10000	integer			3000				
