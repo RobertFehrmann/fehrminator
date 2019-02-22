@@ -1,4 +1,4 @@
-create schema if not exists schema1;  create or replace transient table schema1.table1 as select
+create transient schema if not exists schema1 data_retention_time_in_days=0;  create or replace table schema1.table1 as select
       dateadd(day,uniform(1,100 , random(10001)),current_date)::date as column1
       ,(date_part(epoch_second, current_date)+(uniform(1,100, random(10002))))::timestamp as column2
       ,rpad(uniform(1,100 , random(10003))::varchar,uniform(length(100),10,random(10003+20000)),'abcdefghifklmnopqrstuvwxyz')::varchar(10) as column3

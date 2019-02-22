@@ -153,11 +153,11 @@ def print_ddl(database_objects, outputfile):
     printer('-------------------------------------', of)
     schema_obj=database_objects[db]
     for schema in schema_obj:
-      printer('CREATE SCHEMA IF NOT EXISTS ' + str(schema) + ';', of)
+      printer('CREATE TRANSIENT SCHEMA IF NOT EXISTS ' + str(schema) + ' DATA_RETENTION_TIME_IN_DAYS=0;', of)
       printer('USE SCHEMA '+ str(schema) +';', of)
       tbl_obj=schema_obj[schema]
       for tbl in tbl_obj:
-        printer('CREATE or REPLACE TRANSIENT TABLE '+ tbl, of)
+        printer('CREATE or REPLACE TABLE '+ tbl, of)
         printer('AS', of)
         printer('SELECT', of)
         col_obj=tbl_obj[tbl]

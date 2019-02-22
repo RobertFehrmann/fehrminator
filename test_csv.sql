@@ -1,9 +1,9 @@
 -------------------------------------
 -- Generating Database: TEST
 -------------------------------------
-CREATE SCHEMA IF NOT EXISTS schema1;
+CREATE TRANSIENT SCHEMA IF NOT EXISTS schema1 DATA_RETENTION_TIME_IN_DAYS=0;
 USE SCHEMA schema1;
-CREATE or REPLACE TRANSIENT TABLE table1
+CREATE or REPLACE TABLE table1
 AS
 SELECT
    dateadd(day, uniform(1, 100, random(10002)), date_trunc(day, current_date))::date as column1,
