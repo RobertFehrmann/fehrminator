@@ -13,7 +13,7 @@ The framework takes the following input schema
 1. Schema name
 1. Table name
 1. Column name
-1. Column cardinality (number of distict values in column)
+1. Column cardinality (number of distinct values in column)
 1. Table cardinality (number of rows in table)
 1. Data type
 1. Data length
