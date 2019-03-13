@@ -77,6 +77,8 @@ The are 2 additional datapoints that can be requested from the customer to cover
 1. Number of null values per column
 2. Data distribution (uniform vs. normal)
 
+ * Uniform data distribution can be selected ( 1 in column `Normal Dist` ) for data types BIGINT, VARCHAR, CHAR. Please note that the value for column cardinality will be slightly higher, i.e. is not the exactly the value requested. 
+
 Please note:
  * In case of large dataset and sparse distribution of large string columns, it's very benefical to request the number of null values per column. When reviewing the spec, the number of null values divided by table cardinality should be a reasonable percentage valye, i.e. number between 1 and 100. The framework will generate code that will randomly choose to generate a value or null based on the specified distribution.
  * NOT YET IMPLEMENTED IN PYTHON: In some cases the default data distribution, i.e. uniform, does not meet requirements and customers are looking for a more normal (i.e. bell curve) distribution of FACTS for a specific DIMENSION.  Normal distribution only makes sense for fact tables though the framework doesn't limit the usage to fact tables. If a normal distribution is being specified (Distribution=1), then the framework generates code to use a different distribution function.
