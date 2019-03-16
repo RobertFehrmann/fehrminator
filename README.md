@@ -49,6 +49,7 @@ Please Note:
  * Creating large CHAR/VARCHAR columns (1k+) can consume a considerable amount of time and space. Review these instances with the customer and consider to limit the size. To be clear, Snowflake can handle bigger sizes but it can be very costly to generate the data.
  * Creating a big dataset, e.g. 100 billion rows, can take a considerable amount of time and should be executed on a sufficiently big cluster. However, smaller dataset, e.g. 1 million rows do not benefit from using a large cluster. Rule of Thumb: Start with an XL or smaller for 1 billion rows and below. If you need to create bigger sets, snowflake scales almost linearly from this point forward, i.e. scaling up one level cuts the time to generate the data by half.
  * When creating a large dataset which consumes a considerable amount of credits, start with a scaled down version of the spec, e.g. 1 million rows (or whatever makes sense) and review the output with the customer in terms of dats distribution and joins. Also record the time it took to create the dataset as well as the size to extrapolate total time and size.   
+ * Uniqueness for a column can be achieved by setting the column cardinality for that column to match the table cardinality. Only BIGINT/CHAR are supported for unique columns. Uniqueness is garuanteed via function seq8().
   
 Using the input schema, the framework generates an SQL script to generate data in Snowflake. The SQL script can be generated using the Excel workwork or the python Script.
 

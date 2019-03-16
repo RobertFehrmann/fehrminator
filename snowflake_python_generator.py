@@ -46,6 +46,7 @@ def load_db_file(filename,quoted_names):
 
   database_objects = {}
   seed_1 = 10000  #default seed value, increaments for each row added
+  line_number=0
   if (quoted_names):
     quotes='"'
   else:
@@ -59,6 +60,7 @@ def load_db_file(filename,quoted_names):
   #Used to skip the header record in the file.
   with open(filename, 'rU') as fh:
     next(fh)
+    line_number+=1
     for line_list in csv.reader(fh, delimiter=',', quotechar='"'):
       db="TEST"
       schema=line_list[0]
@@ -88,12 +90,21 @@ def load_db_file(filename,quoted_names):
         fb = '(date_part(epoch_second, current_date) + (uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +'))))'
         fe = '::timestamp as ' + col
       elif datatype.upper() == 'CHAR':
-        fb = 'rpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
+        if cardinality == tbl_cardinality:
+          fb = 'rpad(seq8()::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
+        else:
+          fb = 'rpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
         fe = '::char(' + str(datatype_length) + ') as ' + col
       elif datatype.upper() == 'VARCHAR':
         fb = 'rpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,uniform(length(' +  str(cardinality) + '),' +str(datatype_length) + ',random(' + str(seed_1+20000) + '))' + ", 'abcdefghifklmnopqrstuvwxyz')" 
         fe = '::varchar(' + str(datatype_length) + ') as ' + col
-      elif datatype.upper() == 'BIGINT' or datatype.upper() == 'INTEGER' or datatype.upper() == 'DOUBLE' or datatype.upper() == 'FLOAT':
+      elif datatype.upper() == 'BIGINT':
+        if cardinality == tbl_cardinality:
+          fb = 'seq8()'
+        else:
+          fb = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))'
+        fe = '::' + datatype.lower() + ' as ' + col
+      elif datatype.upper() == 'INTEGER' or datatype.upper() == 'DOUBLE' or datatype.upper() == 'FLOAT':
         fb = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))'
         fe = '::' + datatype.lower() + ' as ' + col
       elif datatype.upper() == 'NUMBER':
@@ -104,14 +115,14 @@ def load_db_file(filename,quoted_names):
         fe=''
 
       if (fb==''):
-        print( "Unknown Datatype: ",datatype ) 
+        print( "WARNING: Line: {0} Unknown Datatype: {1}".format(line_number,datatype ) )
       else:
         if (int(cardinality)<=0):
           formula = 'null'+fe
         elif (null_ratio<=0):
           formula = fb + fe
         else:
-          formula = '(case when uniform(1,1000,random(20011))<='+str(int(null_ratio))+' then null else '+fb+' end)'+fe
+          formula = '(case when uniform(1,1000,random('+str(seed_1+10000)+'))<='+str(int(null_ratio))+' then null else '+fb+' end)'+fe
 
         column_info={'NAME': col, 'DATA_TYPE': datatype, 'LENGTH': datatype_length, 'CARDINALITY': cardinality, 'TBL_CARDINALITY': tbl_cardinality, 'FORMULA': formula  }
 
