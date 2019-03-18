@@ -8,7 +8,7 @@ AS
 SELECT
    dateadd(day, uniform(1, 1234, random(10002)), date_trunc(day, current_date))::date as column1,
    (date_part(epoch_second, current_date) + (uniform(1, 1234, random(10003))))::timestamp as column2,
-   rpad(uniform(1, 1234, random(10004))::varchar,uniform(length(1234),10,random(30004)), 'abcdefghifklmnopqrstuvwxyz')::varchar(10) as column3,
+   rpad(uniform(1, 1234, random(10004))::varchar,10, 'abcdefghifklmnopqrstuvwxyz')::varchar(10) as column3,
    rpad(uniform(1, 1234, random(10005))::varchar,10, 'abcdefghifklmnopqrstuvwxyz')::char(10) as column4,
    uniform(1,1234 , random(10006))::bigint as column5,
    uniform(1,1234 , random(10007))::integer as column6,
@@ -20,7 +20,7 @@ SELECT
    null::integer as column12,
    (case when uniform(1,1000,random(20014))<=300 then null else dateadd(day, uniform(1, 1234, random(10014)), date_trunc(day, current_date)) end)::date as column101,
    (case when uniform(1,1000,random(20015))<=300 then null else (date_part(epoch_second, current_date) + (uniform(1, 1234, random(10015)))) end)::timestamp as column102,
-   (case when uniform(1,1000,random(20016))<=300 then null else rpad(uniform(1, 1234, random(10016))::varchar,uniform(length(1234),10,random(30016)), 'abcdefghifklmnopqrstuvwxyz') end)::varchar(10) as column103,
+   (case when uniform(1,1000,random(20016))<=300 then null else rpad(uniform(1, 1234, random(10016))::varchar,10, 'abcdefghifklmnopqrstuvwxyz') end)::varchar(10) as column103,
    (case when uniform(1,1000,random(20017))<=300 then null else rpad(uniform(1, 1234, random(10017))::varchar,10, 'abcdefghifklmnopqrstuvwxyz') end)::char(10) as column104,
    (case when uniform(1,1000,random(20018))<=300 then null else uniform(1,1234 , random(10018)) end)::bigint as column105,
    (case when uniform(1,1000,random(20019))<=300 then null else uniform(1,1234 , random(10019)) end)::integer as column106,

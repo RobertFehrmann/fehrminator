@@ -89,15 +89,12 @@ def load_db_file(filename,quoted_names):
       elif datatype.upper() == 'TIMESTAMP':
         fb = '(date_part(epoch_second, current_date) + (uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +'))))'
         fe = '::timestamp as ' + col
-      elif datatype.upper() == 'CHAR':
+      elif datatype.upper() == 'CHAR' or datatype.upper() == 'VARCHAR':
         if cardinality == tbl_cardinality:
           fb = 'rpad(seq8()::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
         else:
           fb = 'rpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
-        fe = '::char(' + str(datatype_length) + ') as ' + col
-      elif datatype.upper() == 'VARCHAR':
-        fb = 'rpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,uniform(length(' +  str(cardinality) + '),' +str(datatype_length) + ',random(' + str(seed_1+20000) + '))' + ", 'abcdefghifklmnopqrstuvwxyz')" 
-        fe = '::varchar(' + str(datatype_length) + ') as ' + col
+        fe = '::' + datatype.lower() + '(' + str(datatype_length) + ') as ' + col
       elif datatype.upper() == 'BIGINT':
         if cardinality == tbl_cardinality:
           fb = 'seq8()'
