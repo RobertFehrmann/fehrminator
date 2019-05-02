@@ -5,6 +5,8 @@ Fehrminator is a data generation framework to generate random data sets based on
 
 The idea is to generate a dataset that looks very similar in terms for naming and schema, datasize (i.e. number or rows), and number of rows by column. By taking these values as input parameters, the framework generates a SQL script to generate a randomized dataset of similar size and similar distribution.
 
+One word of caution. Be sure to check the length of VARCHAR columns (and review the documentation below). Generating data for long VARCHAR columns can be time consuming and costly. If you have a spec with several long varchar columns, consider using the max of the actual length of the values in those columns rather than the maximum length defined in the data dictionary.
+
 
 ## Specification
 
@@ -83,4 +85,5 @@ The are 2 additional datapoints that can be requested from the customer to cover
 Please note:
  * In case of large dataset and sparse distribution of large string columns, it's very benefical to request the number of null values per column. When reviewing the spec, the number of null values divided by table cardinality should be a reasonable percentage valye, i.e. number between 1 and 100. The framework will generate code that will randomly choose to generate a value or null based on the specified distribution.
  * NOT YET IMPLEMENTED IN PYTHON: In some cases the default data distribution, i.e. uniform, does not meet requirements and customers are looking for a more normal (i.e. bell curve) distribution of FACTS for a specific DIMENSION.  Normal distribution only makes sense for fact tables though the framework doesn't limit the usage to fact tables. If a normal distribution is being specified (Distribution=1), then the framework generates code to use a different distribution function.
+ 
 
