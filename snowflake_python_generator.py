@@ -71,12 +71,14 @@ def load_db_file(filename,quoted_names):
       datatype=line_list[5]
       datatype_length=line_list[6].strip()
       datatype_precision=line_list[7].strip()
-      if(len(line_list)>7):
+      if(len(line_list)>8):
         null_values=line_list[8].strip()
         if (null_values==''):
            null_ratio=0
         else:
            null_ratio=(float(null_values)/float(tbl_cardinality))*1000
+      else:
+         null_ratio=0
 
       seed_1=seed_1+1
 
