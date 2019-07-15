@@ -89,11 +89,17 @@ def load_db_file(filename,quoted_names):
       elif datatype.upper() == 'TIMESTAMP':
         fb = '(date_part(epoch_second, current_date) + (uniform(1, ' + str(cardinality) + ', random('+ str(seed_1) +'))))'
         fe = '::timestamp as ' + col
-      elif datatype.upper() == 'CHAR' or datatype.upper() == 'VARCHAR':
+      elif datatype.upper() == 'CHAR':
         if cardinality == tbl_cardinality:
           fb = 'rpad(seq8()::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
         else:
           fb = 'rpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
+        fe = '::' + datatype.lower() + '(' + str(datatype_length) + ') as ' + col
+      elif datatype.upper() == 'VARCHAR':
+        if cardinality == tbl_cardinality:
+          fb = 'rpad(seq8()::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
+        else:
+          fb = 'randstr(uniform(1,' + str(datatype_length) + ', random(' + str(seed_1) + ')),uniform(1,'+ str(cardinality) + ',random(' + str(seed_1) + ')))'
         fe = '::' + datatype.lower() + '(' + str(datatype_length) + ') as ' + col
       elif datatype.upper() == 'BIGINT':
         if cardinality == tbl_cardinality:

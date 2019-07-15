@@ -62,7 +62,7 @@ Using the input schema, the framework generates an SQL script to generate data i
 1. Save the worksheet as txt format
 1. Run the following command to generate the SQL Script (the awk script assemble.awk is part of this repo)
 
-cat name.txt | sed "s/\"//g" | sed "s/\|/\"/g" | awk -F"\t" -f assemble.awk
+cat name.txt | sed "s/\\"//g" | sed "s/|/\\"/g" | awk -F"\t" -f assemble.awk
 
 ## Python Code Generation
 

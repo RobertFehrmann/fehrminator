@@ -2,7 +2,7 @@ id	Schema Name	Table Name	STMT: CREATE 	STMT: FROM	Column Name	STMT: Expression	
 0														20000	10000														
 1	schema1	table1	create transient schema if not exists schema1 data_retention_time_in_days=0;  create or replace table schema1.table1 as select		column1	"dateadd(day,uniform(1,1234 , random(10001)),current_date)::date as column1"	1234			10000	date			20001	10001		schema1	table1	column1	1234	10000	date			 				
 2	schema1	table1			column2	"(date_part(epoch_second, current_date)+(uniform(1,1234, random(10002))))::timestamp as column2"	1234			10000	timestamp			20002	10002		schema1	table1	column2	1234	10000	timestamp			  				
-3	schema1	table1			column3	"rpad(uniform(1,1234 , random(10003))::varchar,10,'abcdefghifklmnopqrstuvwxyz')::varchar(10) as column3"	1234			10000	varchar	10		20003	10003		schema1	table1	column3	1234	10000	varchar	10		 				
+3	schema1	table1			column3	"randstr(uniform(1,10, random(10003)),uniform(1,1234,random(10003)))::varchar(10) as column3"	1234			10000	varchar	10		20003	10003		schema1	table1	column3	1234	10000	varchar	10		 				
 4	schema1	table1			column4	"rpad(uniform(1,1234 , random(10004))::varchar,10,'abcdefghifklmnopqrstuvwxyz')::char(10) as column4"	1234			10000	char	10		20004	10004		schema1	table1	column4	1234	10000	char	10		 				
 5	schema1	table1			column5	"uniform(1,1234 , random(10005))::bigint as column5"	1234			10000	bigint			20005	10005		schema1	table1	column5	1234	10000	bigint			 				
 6	schema1	table1			column6	"uniform(1,1234 , random(10006))::integer as column6"	1234			10000	integer			20006	10006		schema1	table1	column6	1234	10000	integer			 				
@@ -14,7 +14,7 @@ id	Schema Name	Table Name	STMT: CREATE 	STMT: FROM	Column Name	STMT: Expression	
 12	schema1	table1			column12	null::integer as column12	0			10000	integer			20012	10012		schema1	table1	column12	0	10000	integer			 				
 13	schema1	table1			column101	"dateadd(day,uniform(1,1234 , random(10013)),current_date)::date as column101"	1234			10000	date			20013	10013		schema1	table1	column101	1234	10000	date			3000				
 14	schema1	table1			column102	"(date_part(epoch_second, current_date)+(uniform(1,1234, random(10014))))::timestamp as column102"	1234			10000	timestamp			20014	10014		schema1	table1	column102	1234	10000	timestamp			3000				
-15	schema1	table1			column103	"rpad(uniform(1,1234 , random(10015))::varchar,10,'abcdefghifklmnopqrstuvwxyz')::varchar(10) as column103"	1234			10000	varchar	10		20015	10015		schema1	table1	column103	1234	10000	varchar	10		3000				
+15	schema1	table1			column103	"randstr(uniform(1,10, random(10015)),uniform(1,1234,random(10015)))::varchar(10) as column103"	1234			10000	varchar	10		20015	10015		schema1	table1	column103	1234	10000	varchar	10		3000				
 16	schema1	table1			column104	"rpad(uniform(1,1234 , random(10016))::varchar,10,'abcdefghifklmnopqrstuvwxyz')::char(10) as column104"	1234			10000	char	10		20016	10016		schema1	table1	column104	1234	10000	char	10		3000				
 17	schema1	table1			column105	"uniform(1,1234 , random(10017))::bigint as column105"	1234			10000	bigint			20017	10017		schema1	table1	column105	1234	10000	bigint			3000				
 18	schema1	table1			column106	"uniform(1,1234 , random(10018))::integer as column106"	1234			10000	integer			20018	10018		schema1	table1	column106	1234	10000	integer			3000				
