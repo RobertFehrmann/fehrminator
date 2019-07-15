@@ -31,7 +31,7 @@ The Framework supports the following datatypes
 1. BIGINT
 1. FLOAT
 1. DOUBLE
-1. NUMBER (LENGHT, PRECISION)
+1. NUMBER (LENGTH, PRECISION)
 
 Please Note:
  * The customer usually can create the required input schema easily by running a meta data query against their existing system. If this is green field development, then take the best guess based on customer requirements.
