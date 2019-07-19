@@ -93,21 +93,18 @@ def load_db_file(filename,quoted_names):
         fe = '::timestamp as ' + col
       elif datatype.upper() == 'CHAR':
         if cardinality == tbl_cardinality:
-          fb = 'rpad(seq8()::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
+          fb = 'rpad((seq8()+1)::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
         else:
           fb = 'rpad(uniform(1, ' + str(cardinality) + ', random(' + str(seed_1) + '))::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
         fe = '::' + datatype.lower() + '(' + str(datatype_length) + ') as ' + col
       elif datatype.upper() == 'VARCHAR':
-        if cardinality == tbl_cardinality:
-          fb = 'rpad(seq8()::varchar,'+ str(datatype_length) + ", 'abcdefghifklmnopqrstuvwxyz')"
-        else:
-          if (datatype_precision==''):
-            datatype_precision=1
-          fb = 'randstr(uniform(' + str(datatype_precision) + ',' + str(datatype_length) + ', random(' + str(seed_1) + ')),uniform(1,'+ str(cardinality) + ',random(' + str(seed_1) + ')))'
+        if (datatype_precision==''):
+          datatype_precision=1
+        fb = 'randstr(uniform(' + str(datatype_precision) + ',' + str(datatype_length) + ', random(' + str(seed_1) + ')),uniform(1,'+ str(cardinality) + ',random(' + str(seed_1) + ')))'
         fe = '::' + datatype.lower() + '(' + str(datatype_length) + ') as ' + col
       elif datatype.upper() == 'BIGINT':
         if cardinality == tbl_cardinality:
-          fb = 'seq8()'
+          fb = '(seq8()+1)'
         else:
           fb = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))'
         fe = '::' + datatype.lower() + ' as ' + col
