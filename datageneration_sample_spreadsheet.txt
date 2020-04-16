@@ -11,16 +11,18 @@ id	Schema Name	Table Name	STMT: CREATE 	STMT: FROM	Column Name	STMT: Expression	
 9	schema1	table1			column9	"uniform(1,1234 , random(10009))::number(10,2) as column9"	1234			10000	number	10	2	20009	10009		schema1	table1	column9	1234	10000	number	10	2	 				
 10	schema1	table1			column10	"rpad(seq8()::varchar,10,'abcdefghifklmnopqrstuvwxyz')::char(10) as column10"	10000			10000	char	10		20010	10010		schema1	table1	column10	10000	10000	char	10						
 11	schema1	table1			column11	seq8()::bigint as column11	10000			10000	bigint			20011	10011		schema1	table1	column11	10000	10000	bigint							
-12	schema1	table1			column12	null::integer as column12	0			10000	integer			20012	10012		schema1	table1	column12	0	10000	integer			 				
-13	schema1	table1			column101	"dateadd(day,uniform(1,1234 , random(10013)),current_date)::date as column101"	1234			10000	date			20013	10013		schema1	table1	column101	1234	10000	date			3000				
-14	schema1	table1			column102	"(date_part(epoch_second, current_date)+(uniform(1,1234, random(10014))))::timestamp as column102"	1234			10000	timestamp			20014	10014		schema1	table1	column102	1234	10000	timestamp			3000				
-15	schema1	table1			column103	"randstr(uniform(1,10, random(10015)),uniform(1,1234,random(10015)))::varchar(10) as column103"	1234			10000	varchar	10		20015	10015		schema1	table1	column103	1234	10000	varchar	10		3000				
-16	schema1	table1			column104	"rpad(uniform(1,1234 , random(10016))::varchar,10,'abcdefghifklmnopqrstuvwxyz')::char(10) as column104"	1234			10000	char	10		20016	10016		schema1	table1	column104	1234	10000	char	10		3000				
-17	schema1	table1			column105	"uniform(1,1234 , random(10017))::bigint as column105"	1234			10000	bigint			20017	10017		schema1	table1	column105	1234	10000	bigint			3000				
-18	schema1	table1			column106	"uniform(1,1234 , random(10018))::integer as column106"	1234			10000	integer			20018	10018		schema1	table1	column106	1234	10000	integer			3000				
-19	schema1	table1			column107	"uniform(1,1234 , random(10019))::double as column107"	1234			10000	double			20019	10019		schema1	table1	column107	1234	10000	double			3000				
-20	schema1	table1			column108	"uniform(1,1234 , random(10020))::float as column108"	1234			10000	float			20020	10020		schema1	table1	column108	1234	10000	float			3000				
-21	schema1	table1			column109	"uniform(1,1234 , random(10021))::number(10,2) as column109"	1234			10000	number	10	2	20021	10021		schema1	table1	column109	1234	10000	number	10	2	3000				
-22	schema1	table1			column110	"rpad(seq8()::varchar,10,'abcdefghifklmnopqrstuvwxyz')::char(10) as column110"	10000			10000	char	10		20022	10022		schema1	table1	column110	10000	10000	char	10		3000				
-23	schema1	table1			column111	seq8()::bigint as column111	10000			10000	bigint			20023	10023		schema1	table1	column111	10000	10000	bigint			3000				
-24	schema1	table1		from table(generator(rowcount => 10000))	column112	null::integer as column112	0			10000	integer			20024	10024		schema1	table1	column112	0	10000	integer			3000				
+11	schema1	table1			column12	"(uniform(1,2,random(10012))-1)::boolean as column12"	2			10000	boolean			20012	10012		schema1	table1	column12	2	10000	boolean			 				
+12	schema1	table1			column13	null::integer as column13	0			10000	integer			20013	10013		schema1	table1	column13	0	10000	integer			 				
+13	schema1	table1			column101	"dateadd(day,uniform(1,1234 , random(10014)),current_date)::date as column101"	1234			10000	date			20014	10014		schema1	table1	column101	1234	10000	date			3000				
+14	schema1	table1			column102	"(date_part(epoch_second, current_date)+(uniform(1,1234, random(10015))))::timestamp as column102"	1234			10000	timestamp			20015	10015		schema1	table1	column102	1234	10000	timestamp			3000				
+15	schema1	table1			column103	"randstr(uniform(1,10, random(10016)),uniform(1,1234,random(10016)))::varchar(10) as column103"	1234			10000	varchar	10		20016	10016		schema1	table1	column103	1234	10000	varchar	10		3000				
+16	schema1	table1			column104	"rpad(uniform(1,1234 , random(10017))::varchar,10,'abcdefghifklmnopqrstuvwxyz')::char(10) as column104"	1234			10000	char	10		20017	10017		schema1	table1	column104	1234	10000	char	10		3000				
+17	schema1	table1			column105	"uniform(1,1234 , random(10018))::bigint as column105"	1234			10000	bigint			20018	10018		schema1	table1	column105	1234	10000	bigint			3000				
+18	schema1	table1			column106	"uniform(1,1234 , random(10019))::integer as column106"	1234			10000	integer			20019	10019		schema1	table1	column106	1234	10000	integer			3000				
+19	schema1	table1			column107	"uniform(1,1234 , random(10020))::double as column107"	1234			10000	double			20020	10020		schema1	table1	column107	1234	10000	double			3000				
+20	schema1	table1			column108	"uniform(1,1234 , random(10021))::float as column108"	1234			10000	float			20021	10021		schema1	table1	column108	1234	10000	float			3000				
+21	schema1	table1			column109	"uniform(1,1234 , random(10022))::number(10,2) as column109"	1234			10000	number	10	2	20022	10022		schema1	table1	column109	1234	10000	number	10	2	3000				
+22	schema1	table1			column110	"rpad(seq8()::varchar,10,'abcdefghifklmnopqrstuvwxyz')::char(10) as column110"	10000			10000	char	10		20023	10023		schema1	table1	column110	10000	10000	char	10		3000				
+23	schema1	table1			column111	seq8()::bigint as column111	10000			10000	bigint			20024	10024		schema1	table1	column111	10000	10000	bigint			3000				
+23	schema1	table1			column112	"(uniform(1,2,random(10025))-1)::boolean as column112"	2			10000	boolean			20025	10025		schema1	table1	column112	2	10000	boolean			3000				
+24	schema1	table1		from table(generator(rowcount => 10000))	column113	null::integer as column113	0			10000	integer			20026	10026		schema1	table1	column113	0	10000	integer			3000				

@@ -108,6 +108,11 @@ def load_db_file(filename,quoted_names):
         else:
           fb = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))'
         fe = '::' + datatype.lower() + ' as ' + col
+      elif datatype.upper() == 'BOOLEAN':
+        if (int(cardinality)>2):
+          cardinality=2
+        fb = '(uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))-1)'
+        fe = '::' + datatype.lower() + ' as ' + col
       elif datatype.upper() == 'INTEGER' or datatype.upper() == 'DOUBLE' or datatype.upper() == 'FLOAT':
         fb = 'uniform(1,' + str(cardinality) + ' , random('+ str(seed_1) +'))'
         fe = '::' + datatype.lower() + ' as ' + col
@@ -119,7 +124,8 @@ def load_db_file(filename,quoted_names):
         fe=''
 
       if (fb==''):
-        print( "WARNING: Line: {0} Unknown Datatype: {1}".format(line_number,datatype ) )
+        if (schema!='' or datatype!=''):
+           print( "WARNING: Line: {0} Unknown Datatype: {1}".format(line_number,datatype ) )
       else:
         if (int(cardinality)<=0):
           formula = 'null'+fe

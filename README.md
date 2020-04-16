@@ -27,6 +27,7 @@ The Framework supports the following datatypes
 1. TIMESTAMP
 1. CHAR (LENGTH)
 1. VARCHAR (LENGTH)
+1. BOOLEAN
 1. INTEGER
 1. BIGINT
 1. FLOAT
